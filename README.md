@@ -29,3 +29,17 @@ Markup : * create a parent class BaseModel that will take care of initializatio$
                 * use *args and **kwargs
                 * handle named arguments in a function
 
+
+ Markup : * Bullet list
+              * Nested bullet
+                  * Sub-nested bullet etc
+          * Bullet list item 2
+
+-OR-
+
+ Markup : - Bullet list
+              - Nested bullet
+                  - Sub-nested bullet etc
+          - Bullet list item 2 
+
+
