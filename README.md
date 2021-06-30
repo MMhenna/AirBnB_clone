@@ -7,8 +7,8 @@ hbnb is a full clone of the web application AirBnB. This clone will be construct
 ## Purpose
 
 The purpose of the AirBnb project is to:
-* create a parent class BaseModel that will take care of initializatio$
-* create a simple flow of serialization/deserialization: instance <-> $
+* create a parent class BaseModel that will take care of initialization, serialization, and deserialization of future       instances
+* create a simple flow of serialization/deserialization: instance <-> dictionary <-> JSON string <-> file
 * create all classes used for AirBnb that inherit from BaseModel
 * create an abstracted storage engine (FileStorage)
 * create unittests to validate all our classes and storage engine
