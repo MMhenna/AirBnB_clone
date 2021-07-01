@@ -1,30 +1,53 @@
-# AirBnB_clone
+# Synopsis
 
-## Description
+The Airbnb clone project for which we are creating a copy of the Airbnb. Only some features will be implemented and will be listed below once completed.
 
-hbnb is a full clone of the web application AirBnB. This clone will be constructed in five phases. Currently, we have completed the first phase - to build a simple command interpreter that parses and evaluates input from the commandline appropriately. Test suite included. Future steps to come.
+## Features
 
-## Purpose
+### Command Interpreter
 
-The purpose of the AirBnb project is to:
-* create a parent class BaseModel that will take care of initialization, serialization, and deserialization of future       instances
-* create a simple flow of serialization/deserialization: instance <-> dictionary <-> JSON string <-> file
-* create all classes used for AirBnb that inherit from BaseModel
-* create an abstracted storage engine (FileStorage)
-* create unittests to validate all our classes and storage engine
-* create a command interpreter that can do the following:
-  * create a new object
-  * retrieve an object from a file, database, etc.
-  * do operations on objects
-  * update attributes of an object
-  * destroy an object
-* learn how to do the following:
-  * create a Python package
-  * create a command interpreter in Python using the cmd module
-  * implement Unit testing on a large project
-  * serialize and deserialize a class
-  * write and read a JSON file
-  * manage datetime
-  * create UUIDs
-  * use *args and **kwargs
-  * handle named arguments in a function
+#### Description
+
+The Command Interpreter is used to manage the whole application's functionality from the command line, such as:
+
+* Create a new object.
+* Retrieve an object from a file, database, etc.
+* Execute operation on objects. e.g. Count, compute statistics, etc.
+* Update object's attributes.
+* Destroy an object.
+
+#### Usage
+
+To launch the console application in interactive mode simply run:
+
+```bash
+./console.py
+```
+
+or to use the non-interactive mode run:
+
+```bash
+echo "your-command-goes-here" | ./console.py
+```
+
+#### Commands
+
+|Commands||Description||Usage|
+|help or ?||Displays the documented commands.||help|
+|quit||Exits the program.||quit|
+|EOF||Ends the program. Used when files are passed into the program.||N/A|
+|create||Creates a new instance of the <class_name>. Creates a Json file with the object representation. and prints the id of created object.||create <class_name>|
+|show||Prints the string representation of an instance based on the class name and id.||show <class_name class_id>|
+|destroy||Deletes and instance base on the class name and id.||destroy <class_name class_id>|
+|all||Prints all string representation of all instances based or not on the class name||all or all <class_name class_id>|
+|update||Updates an instance based on the class name and id by adding or updating attribute||update <class_name class_id key value>|
+
+## Tests
+
+If you wish to run at the test for this application all of the test are located under the test/ folder and can execute all of them by simply running:
+
+```bash
+python3 -m unittest discover tests
+```
+
+from the root directory.
