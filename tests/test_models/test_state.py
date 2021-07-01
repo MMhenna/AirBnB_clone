@@ -33,3 +33,6 @@ class TestState(unittest.TestCase):
         new_state = State()
         name = getattr(new_state, "name")
         self.assertIsInstance(name, str)
+
+if __name__ == '__main__':
+    unittest.main()
