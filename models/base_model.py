@@ -1,75 +1,62 @@
 #!/usr/bin/python3
-"""This is a class BaseModel"""
-from datetime import datetime
+'''
+    This module defines the BaseModel class
+'''
 import uuid
-import json
+from datetime import datetime
 import models
 
 
 class BaseModel:
-    """class BaseModel"""
+    '''
+        Base class for other classes to be used for the duration.
+    '''
     def __init__(self, *args, **kwargs):
-        """initialize attributes
-        Args:
-            args (int): arguments to send a non-keyworded variable
-                length argument list to the function
-            kwargs (dict): keyworded variable length of arguments
-        """
-        if kwargs is not None and len(kwargs) != 0:
-            for key in kwargs:
-                if key == "id":
-                    self.id = kwargs[key]
-                elif key == "created_at":
-                    self.created_at = datetime.strptime(kwargs[key],
-                                                        "%Y-%m-%dT%H:%M:%S.%f")
-                elif key == "updated_at":
-                    self.updated_at = datetime.strptime(kwargs[key],
-                                                        "%Y-%m-%dT%H:%M:%S.%f")
-                else:
-                    if key != "__class__":
-                        setattr(self, key, kwargs[key])
-        else:
+        '''
+            Initialize public instance attributes.
+        '''
+        if (len(kwargs) == 0):
             self.id = str(uuid.uuid4())
-            self.created_at = self.updated_at = datetime.now()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             models.storage.new(self)
+        else:
+            kwargs["created_at"] = datetime.strptime(kwargs["created_at"],
+                                                     "%Y-%m-%dT%H:%M:%S.%f")
+            kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"],
+                                                     "%Y-%m-%dT%H:%M:%S.%f")
+            for key, val in kwargs.items():
+                if "__class__" not in key:
+                    setattr(self, key, val)
 
     def __str__(self):
-        """creates formatted string
-        Returns:
-            a formatted string
-        """
-        return "[{}] ({}) {}".format(type(self).__name__, self.id,
-                                     self.__dict__)
+        '''
+            Return string representation of BaseModel class
+        '''
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                      self.id, self.__dict__))
 
     def __repr__(self):
-        """creates formatted string
-        Returns:
-            a formatted string
-        """
-        return self.__str__()
+        '''
+            Return string representation of BaseModel class
+        '''
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                      self.id, self.__dict__))
 
     def save(self):
-        """updates public instance attribute
-        updated_at with current datetime"""
+        '''
+            Update the updated_at attribute with new.
+        '''
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """creates a dictionary containing all keys/values of
-            __dict__ of the instance
-        Returns:
-            dictionary containing all key/values of __dict__ of instance
-        """
-        a_dict = dict(self.__dict__)
-#        a_dict = self.__dict__
-#        a_dict = {}
-#        a_dict.update(self.__dict__)
-        for key in a_dict:
-            if key == "id":
-                a_dict[key] = self.id
-            elif key == "created_at":
-                a_dict[key] = self.created_at.isoformat()
-            elif key == "updated_at":
-                a_dict[key] = self.updated_at.isoformat()
-        a_dict["__class__"] = type(self).__name__
-	    return (a_dict)
+        '''
+            Return dictionary representation of BaseModel class.
+        '''
+        cp_dct = dict(self.__dict__)
+        cp_dct['__class__'] = self.__class__.__name__
+        cp_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+
+        return (cp_dct)
